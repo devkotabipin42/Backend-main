@@ -1,0 +1,119 @@
+import React from 'react'
+import { Link, useNavigate } from 'react-router'
+import { useAuth } from '../hooks/useAuth'
+import { useState } from 'react'
+const Login = () => {
+
+  const{loading,handleLogin} = useAuth()
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  async function handleSubmit(e){
+    e.preventDefault()
+    await handleLogin({email,password})
+    navigate('/')
+  }
+  return (
+    <div className="min-h-screen w-full bg-gradient-to-b from-zinc-950 via-zinc-950 to-black flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        {/* Card */}
+        <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl shadow-black/40">
+          {/* Header */}
+          <div className="px-6 pt-7 pb-5">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center">
+                <span className="text-white font-semibold">IG</span>
+              </div>
+              <div>
+                <h1 className="text-xl font-semibold text-white">Welcome back</h1>
+                <p className="text-sm text-white/60">Login to continue</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Form */}
+          <form className="px-6 pb-6" onSubmit={handleSubmit}>
+            {/* Email / Username */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-white/80 mb-2">
+                Email or Username
+              </label>
+              <div className="relative">
+                <input
+                  value={email}
+                  onChange={(e)=>setEmail(e.target.value)}
+                  type="text"
+                  placeholder="bipin@example.com or bipin"
+                  className="w-full rounded-xl bg-black/30 border border-white/10 px-4 py-3 text-white placeholder:text-white/40 outline-none focus:border-white/25 focus:ring-2 focus:ring-white/10 transition"
+                />
+                <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                  <span className="text-white/30 text-xs">@</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Password */}
+            <div className="mb-3">
+              <label className="block text-sm font-medium text-white/80 mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  onChange={(e)=>{setPassword(e.target.value)}}
+                  value={password}
+                  type="password"
+                  placeholder="••••••••"
+                  className="w-full rounded-xl bg-black/30 border border-white/10 px-4 py-3 text-white placeholder:text-white/40 outline-none focus:border-white/25 focus:ring-2 focus:ring-white/10 transition"
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-2 my-1 px-3 rounded-lg text-xs text-white/70 hover:text-white hover:bg-white/10 transition"
+                >
+                  Show
+                </button>
+              </div>
+            </div>
+
+           
+
+            {/* Submit */}
+            <button
+              type="submit"
+              className="w-full rounded-xl bg-red-800 text-black font-semibold py-3 active:scale-95 transition"
+            >
+              Login
+            </button>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 my-5">
+              <div className="h-px flex-1 bg-white/10" />
+              <span className="text-xs text-white/40">OR</span>
+              <div className="h-px flex-1 bg-white/10" />
+            </div>
+
+            
+
+            {/* Footer */}
+            <p className="mt-5 text-center text-sm text-white/60">
+              Don&apos;t have an account?{" "}
+              <button
+                type="button"
+                className="text-white underline underline-offset-4 decoration-white/20 hover:decoration-white/50 transition"
+              >
+                <Link to={'/register'}>Register</Link>
+              </button>
+            </p>
+          </form>
+        </div>
+
+        {/* Small note */}
+        <p className="mt-4 text-center text-xs text-white/40">
+          By continuing, you agree to our Terms & Privacy Policy.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export default Login

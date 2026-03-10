@@ -1,0 +1,6 @@
+{
+  caption;String,
+  img_url:String,
+  user:userId,
+  creeatedAT:Date-time,
+}
