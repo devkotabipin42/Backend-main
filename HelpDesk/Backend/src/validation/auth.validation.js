@@ -1,14 +1,14 @@
-const { body } = require('express-validator')
+const { body, validationResult } = require('express-validator')
 
-export function validate(req, res, next) {
-    const errors = validationResult(req);
+function validate(req, res, next) {
+    const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ errors: errors.array() })
     }
-    next();
+    next()
 }
 
-export const registerValidator = [
+const registerValidator = [
     body("username")
         .trim()
         .notEmpty().withMessage("Username is required")
@@ -25,4 +25,18 @@ export const registerValidator = [
         .isLength({ min: 6 }).withMessage("Password must be at least 6 characters"),
 
     validate
-];
+]
+
+const loginValidator = [
+    body("email")
+        .trim()
+        .notEmpty().withMessage("Email is required")
+        .isEmail().withMessage("Please provide a valid email"),
+
+    body("password")
+        .notEmpty().withMessage("Password is required"),
+
+    validate
+]
+
+module.exports = { registerValidator, loginValidator }
