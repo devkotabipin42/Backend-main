@@ -1,5 +1,0 @@
-io = server
-socket= single user
-
-on = event ko listen
-emit= event ko fire karna
